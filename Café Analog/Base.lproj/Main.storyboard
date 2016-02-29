@@ -8,12 +8,6 @@
         <!--Open View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <tapGestureRecognizer id="q8a-wj-dBk">
-                    <connections>
-                        <action selector="tapAction:" destination="BYZ-38-t0r" id="99I-1a-iFM"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="OpenViewController" customModule="Cafe__Analog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -44,7 +38,7 @@
                     <navigationItem key="navigationItem" id="hMe-fb-Nen">
                         <barButtonItem key="rightBarButtonItem" title="Schedule" id="YUK-py-2Df">
                             <connections>
-                                <segue destination="T4Q-nh-1CP" kind="show" id="thC-wj-GfJ"/>
+                                <segue destination="Ed8-gG-MMA" kind="show" id="54d-Xi-asm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -52,26 +46,84 @@
                         <outlet property="label" destination="8Ss-Bq-iZH" id="WrH-N3-DHu"/>
                     </connections>
                 </viewController>
+                <tapGestureRecognizer id="q8a-wj-dBk">
+                    <connections>
+                        <action selector="tapAction:" destination="BYZ-38-t0r" id="99I-1a-iFM"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="912" y="385"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="kr2-m9-kDM">
+        <!--Schedule Table View Controller-->
+        <scene sceneID="2y5-Yf-azC">
             <objects>
-                <viewController id="T4Q-nh-1CP" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="etU-M0-icL"/>
-                        <viewControllerLayoutGuide type="bottom" id="cKz-S2-Cb0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QS1-oH-3tO">
+                <tableViewController id="Ed8-gG-MMA" customClass="ScheduleTableViewController" customModule="Cafe__Analog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="51" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vff-wy-YON">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Cv-Sa-ljZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TimeSlotCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeSlotCell" rowHeight="51" id="aoP-mW-nP6" customClass="ScheduleTableViewCell" customModule="Cafe__Analog" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aoP-mW-nP6" id="Uhr-nI-odD">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3EH-ld-Qfr">
+                                            <rect key="frame" x="14" y="4" width="240" height="44"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7T-iS-9bY">
+                                                    <rect key="frame" x="0.0" y="0.0" width="147" height="21"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Someday">
+                                                            <attributes>
+                                                                <color key="NSColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <font key="NSFont" size="20" name="Futura-Medium"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="clipping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RR8-zL-Gqi">
+                                                    <rect key="frame" x="0.0" y="23" width="147" height="21"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="00:00 - 00:00">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="17" name="Helvetica"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="clipping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3EH-ld-Qfr" firstAttribute="centerY" secondItem="Uhr-nI-odD" secondAttribute="centerY" id="ZnU-5F-MgP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dayLabel" destination="e7T-iS-9bY" id="9hO-S1-2o9"/>
+                                    <outlet property="timeslotLabel" destination="RR8-zL-Gqi" id="x35-vD-vTx"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Ed8-gG-MMA" id="nMK-Dm-0OK"/>
+                            <outlet property="delegate" destination="Ed8-gG-MMA" id="jIC-nW-We8"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IXO-aq-HAU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1629" y="385"/>
+            <point key="canvasLocation" x="1670" y="385"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uS8-Je-ofe">
