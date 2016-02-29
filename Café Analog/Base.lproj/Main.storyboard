@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="b8g-rz-2fj">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Open View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Cafe__Analog" customModuleProvider="target" sceneMemberID="viewController">
+                <tapGestureRecognizer id="q8a-wj-dBk">
+                    <connections>
+                        <action selector="tapAction:" destination="BYZ-38-t0r" id="99I-1a-iFM"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <viewController id="BYZ-38-t0r" customClass="OpenViewController" customModule="Cafe__Analog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,7 +27,7 @@
                                 <rect key="frame" x="241" y="283" width="118" height="33"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -35,18 +41,55 @@
                             <outletCollection property="gestureRecognizers" destination="q8a-wj-dBk" appends="YES" id="i9n-O9-5qz"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="hMe-fb-Nen">
+                        <barButtonItem key="rightBarButtonItem" title="Schedule" id="YUK-py-2Df">
+                            <connections>
+                                <segue destination="T4Q-nh-1CP" kind="show" id="thC-wj-GfJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="label" destination="8Ss-Bq-iZH" id="WrH-N3-DHu"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="q8a-wj-dBk">
-                    <connections>
-                        <action selector="tapAction:" destination="BYZ-38-t0r" id="99I-1a-iFM"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="205" y="439"/>
+            <point key="canvasLocation" x="912" y="385"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="kr2-m9-kDM">
+            <objects>
+                <viewController id="T4Q-nh-1CP" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="etU-M0-icL"/>
+                        <viewControllerLayoutGuide type="bottom" id="cKz-S2-Cb0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QS1-oH-3tO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Cv-Sa-ljZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1629" y="385"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uS8-Je-ofe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b8g-rz-2fj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g2R-vw-Uhx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Is3-oW-G5m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MVM-vy-2Au" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="100" y="385"/>
         </scene>
     </scenes>
 </document>

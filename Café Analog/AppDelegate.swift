@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: CLLocationManagerDelegate{
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if let beaconRegion = region as? CLBeaconRegion {
+        if let _ = region as? CLBeaconRegion {
             Alamofire.request(.GET, "http://cafeanalog.dk/api/open/")
                 .responseJSON { response in switch response.result {
                 case .Success(let JSON):

@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import CoreLocation
 
-class ViewController: UIViewController {
+class OpenViewController: UIViewController {
 
     let locationManager = CLLocationManager()
     //let analog = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: "E3B54450-AB73-4D79-85D6-519EAF0F45D9")!, major: 0, minor: 2011, identifier: "Analog")
@@ -61,13 +61,11 @@ class ViewController: UIViewController {
     }
     
     func setOpenLabel(state: Bool){
-        if state == true{
+        if state {
             label.text = "Analog is ÅPEN!"
-            label.textColor = UIColor.greenColor()
         }
         else {
             label.text = "Analog is CLØSED!"
-            label.textColor = UIColor.redColor()
         }
     }
     
