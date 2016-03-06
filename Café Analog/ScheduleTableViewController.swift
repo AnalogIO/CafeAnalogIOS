@@ -89,7 +89,7 @@ class ScheduleTableViewController: UITableViewController {
     
     func formatDateWithString(format: String, toFormat date: NSDate) -> String {
         let df = NSDateFormatter()
-        df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+        df.timeZone = NSTimeZone(forSecondsFromGMT: 3600)
         df.dateFormat = format
         let stringFromDate = df.stringFromDate(date)
         return stringFromDate
