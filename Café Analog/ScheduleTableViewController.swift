@@ -30,23 +30,25 @@ class ScheduleTableViewController: UITableViewController {
         let day = days[indexPath.row]
         
         cell.dayLabel.text = day.day
-        cell.firstTimeSlot.hidden = !day.first
-        cell.secondTimeSlot.hidden = !day.second
-        cell.thirdTimeSlot.hidden = !day.third
-        
-        setBorder(cell.firstTimeSlot)
-        setBorder(cell.secondTimeSlot)
-        setBorder(cell.thirdTimeSlot)
+        setBorder(cell.firstTimeSlot, open: day.first)
+        setBorder(cell.secondTimeSlot, open: day.second)
+        setBorder(cell.thirdTimeSlot, open: day.third)
         
         cell.userInteractionEnabled = false
         return cell
     }
     
-    func setBorder(label: UILabel) {
-        label.layer.borderColor = UIColor.blackColor().CGColor
+    func setBorder(label: UILabel, open: Bool) {
+        if open {
+            label.layer.borderColor = UIColor.blackColor().CGColor
+            label.textColor = UIColor.blackColor()
+        }
+        else {
+            label.layer.borderColor = UIColor.lightGrayColor().CGColor
+        }
+
         label.layer.borderWidth = 1
         label.layer.masksToBounds = true
-
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -104,18 +106,6 @@ class ScheduleTableViewController: UITableViewController {
         }
         
         return Array(toReturn.values)
-    }
-    
-    func dateIsBetweenDate(toCheck: NSDate, beginDate: NSDate, endDate: NSDate) -> Bool {
-        if (toCheck.compare(beginDate) == NSComparisonResult.OrderedAscending) {
-            return false;
-        }
-        
-        if (toCheck.compare(endDate) == NSComparisonResult.OrderedDescending) {
-            return false;
-        }
-        
-        return true;
     }
     
     func jsonDateToNSDate(jsonDate: String) -> NSDate? {
