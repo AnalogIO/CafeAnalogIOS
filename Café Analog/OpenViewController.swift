@@ -29,15 +29,11 @@ class OpenViewController: UIViewController {
         //locationManager.startMonitoringForRegion(analog)
         //locationManager.startMonitoringForRegion(pitlab)
         locationManager.startMonitoringForRegion(itu)
-        
         update()
-        
     }
     
 
     @IBAction func tapAction(sender: AnyObject) {
-        /*label.text = "Loading..."
-        label.textColor = UIColor.groupTableViewBackgroundColor()*/
         update()
     }
 

@@ -3,7 +3,7 @@
 //  Café Analog
 //
 //  Created by Anders Fischer-Nielsen on 29/02/16.
-//  Copyright © 2016 Jacob Benjamin Cholewa. All rights reserved.
+//  Copyright © 2016 Anders Fischer-Nielsen. All rights reserved.
 //
 
 import UIKit
@@ -84,12 +84,13 @@ class ScheduleTableViewController: UITableViewController {
                     if let start = jsonDateToNSDate(open) {
                         if let end = jsonDateToNSDate(close) {
                             let formattedDay = formatDateWithString("EEEE", toFormat: start)
+                            let NSDay = getNSDay(start)
                             
                             let startHour = getHourFromDate(start)
                             let endHour = getHourFromDate(end)
                             
                             if toReturn[formattedDay] == nil {
-                                toReturn[formattedDay] = Day(day: formattedDay, first: false, second: false, third: false)
+                                toReturn[formattedDay] = Day(day: formattedDay, first: false, second: false, third: false, NSDateDay: NSDay)
                             }
                             if (startHour >= 9 && endHour < 12) {
                                 toReturn[formattedDay]?.first = true
@@ -106,7 +107,8 @@ class ScheduleTableViewController: UITableViewController {
             }
         }
         
-        return Array(toReturn.values)
+        let sorted = toReturn.values.sort({ (first: Day, second: Day) -> Bool in return first.NSDateDay < second.NSDateDay })
+        return Array(sorted)
     }
     
     func jsonDateToNSDate(jsonDate: String) -> NSDate? {
@@ -119,6 +121,11 @@ class ScheduleTableViewController: UITableViewController {
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components([.Hour, .Minute], fromDate: date)
         return components.hour
+    }
+    
+    func getNSDay(date: NSDate) -> Int {
+        let calendar = NSCalendar.currentCalendar();
+        return calendar.component(.Day, fromDate: date)
     }
     
     func formatDateWithString(format: String, toFormat date: NSDate) -> String {
@@ -142,11 +149,13 @@ class Day {
     var first: Bool
     var second: Bool
     var third: Bool
+    let NSDateDay: Int
     
-    init(day: String, first: Bool, second: Bool, third: Bool) {
+    init(day: String, first: Bool, second: Bool, third: Bool, NSDateDay: Int) {
         self.day = day
         self.first = first
         self.second = second
         self.third = third
+        self.NSDateDay = NSDateDay
     }
 }
