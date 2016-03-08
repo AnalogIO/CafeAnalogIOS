@@ -107,8 +107,7 @@ class ScheduleTableViewController: UITableViewController {
             }
         }
         
-        let sorted = toReturn.values.sort({ (first: Day, second: Day) -> Bool in return first.NSDateDay < second.NSDateDay })
-        return Array(sorted)
+        return toReturn.values.sort({ (first: Day, second: Day) -> Bool in return first.NSDateDay < second.NSDateDay })
     }
     
     func jsonDateToNSDate(jsonDate: String) -> NSDate? {
