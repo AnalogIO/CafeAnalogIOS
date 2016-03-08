@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class ScheduleTableViewController: UITableViewController {
-    var timeslots: [TimeSlot] = []
+    var days: [Day] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,7 @@ class ScheduleTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timeslots.count
+        return days.count
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,12 +27,26 @@ class ScheduleTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TimeSlotCell", forIndexPath: indexPath) as! ScheduleTableViewCell
-        let timeslot = timeslots[indexPath.row]
+        let day = days[indexPath.row]
         
-        cell.dayLabel.text = timeslot.day
-        cell.timeslotLabel.text = timeslot.start + " - " + timeslot.end
+        cell.dayLabel.text = day.day
+        cell.firstTimeSlot.hidden = !day.first
+        cell.secondTimeSlot.hidden = !day.second
+        cell.thirdTimeSlot.hidden = !day.third
         
+        setBorder(cell.firstTimeSlot)
+        setBorder(cell.secondTimeSlot)
+        setBorder(cell.thirdTimeSlot)
+        
+        cell.userInteractionEnabled = false
         return cell
+    }
+    
+    func setBorder(label: UILabel) {
+        label.layer.borderColor = UIColor.blackColor().CGColor
+        label.layer.borderWidth = 1
+        label.layer.masksToBounds = true
+
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -45,7 +59,7 @@ class ScheduleTableViewController: UITableViewController {
         .responseJSON { response in switch response.result {
             case .Success(let JSON):
                 let response = JSON as! [NSDictionary]
-                self.timeslots = self.parseDictionaryToTimeSlotArray(response)
+                self.days = self.parseDictionaryToDays(response)
                 let table = self.view as! UITableView
                 table.reloadData()
                 
@@ -58,8 +72,8 @@ class ScheduleTableViewController: UITableViewController {
         table.reloadData()
     }
     
-    func parseDictionaryToTimeSlotArray(data: [NSDictionary]) -> [TimeSlot] {
-        var toReturn = [TimeSlot]()
+    func parseDictionaryToDays(data: [NSDictionary]) -> [Day] {
+        var toReturn = [String: Day]()
         
         for timeSlotData in data {
             if let open = timeSlotData["Open"] as? String {
@@ -67,18 +81,41 @@ class ScheduleTableViewController: UITableViewController {
                     if let start = jsonDateToNSDate(open) {
                         if let end = jsonDateToNSDate(close) {
                             let formattedDay = formatDateWithString("EEEE", toFormat: start)
-                            let formattedStart = formatDateWithString("HH:mm", toFormat: start)
-                            let formattedEnd = formatDateWithString("HH:mm", toFormat: end)
-                    
-                            let timeslot = TimeSlot(day: formattedDay, start: formattedStart, end: formattedEnd)
-                            toReturn.append(timeslot)
+                            
+                            let startHour = getHourFromDate(start)
+                            let endHour = getHourFromDate(end)
+                            
+                            if toReturn[formattedDay] == nil {
+                                toReturn[formattedDay] = Day(day: formattedDay, first: false, second: false, third: false)
+                            }
+                            if (startHour >= 9 && endHour < 12) {
+                                toReturn[formattedDay]?.first = true
+                            }
+                            if (startHour >= 11 && endHour < 16) {
+                                toReturn[formattedDay]?.second = true
+                            }
+                            if (startHour >= 14) {
+                                toReturn[formattedDay]?.third = true
+                            }
                         }
                     }
                 }
             }
         }
         
-        return toReturn
+        return Array(toReturn.values)
+    }
+    
+    func dateIsBetweenDate(toCheck: NSDate, beginDate: NSDate, endDate: NSDate) -> Bool {
+        if (toCheck.compare(beginDate) == NSComparisonResult.OrderedAscending) {
+            return false;
+        }
+        
+        if (toCheck.compare(endDate) == NSComparisonResult.OrderedDescending) {
+            return false;
+        }
+        
+        return true;
     }
     
     func jsonDateToNSDate(jsonDate: String) -> NSDate? {
@@ -87,39 +124,38 @@ class ScheduleTableViewController: UITableViewController {
         return dateFor.dateFromString(jsonDate)!
     }
     
+    func getHourFromDate(date: NSDate) -> Int {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Hour, .Minute], fromDate: date)
+        return components.hour
+    }
+    
     func formatDateWithString(format: String, toFormat date: NSDate) -> String {
         let df = NSDateFormatter()
-        df.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+        df.timeZone = NSTimeZone(forSecondsFromGMT: 3600)
         df.dateFormat = format
         let stringFromDate = df.stringFromDate(date)
         return stringFromDate
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
 class ScheduleTableViewCell: UITableViewCell {
     @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var timeslotLabel: UILabel!
+    @IBOutlet weak var firstTimeSlot: UILabel!
+    @IBOutlet weak var secondTimeSlot: UILabel!
+    @IBOutlet weak var thirdTimeSlot: UILabel!
 }
 
-class TimeSlot {
-    var day: String
-    var start: String
-    var end: String
+class Day {
+    let day: String
+    var first: Bool
+    var second: Bool
+    var third: Bool
     
-    init(day: String, start: String, end: String) {
+    init(day: String, first: Bool, second: Bool, third: Bool) {
         self.day = day
-        self.start = start
-        self.end = end
+        self.first = first
+        self.second = second
+        self.third = third
     }
 }
