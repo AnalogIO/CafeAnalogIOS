@@ -14,6 +14,7 @@ class ScheduleTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Schedule"
         fetch()
     }
     
