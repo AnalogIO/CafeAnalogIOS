@@ -118,7 +118,7 @@
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="94" id="sI3-6u-VsZ"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="14:30 - 16:30">
+                                                        <fragment content="14:30 - 17:30">
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.0" colorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -135,7 +135,7 @@
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="94" id="cdb-wf-tOt"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="9:30 - 11:30">
+                                                        <fragment content="9:00 - 11:30">
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.0" colorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
