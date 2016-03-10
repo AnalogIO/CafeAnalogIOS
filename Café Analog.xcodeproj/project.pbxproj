@@ -14,6 +14,7 @@
 		3896D3D51C85D8920046EDE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3896D3D31C85D8920046EDE0 /* LaunchScreen.storyboard */; };
 		3896D3DD1C85D9810046EDE0 /* OpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3896D3DC1C85D9810046EDE0 /* OpenViewController.swift */; };
 		3896D3DF1C85D9880046EDE0 /* ScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3896D3DE1C85D9880046EDE0 /* ScheduleTableViewController.swift */; };
+		752818F32FBFCCBF2D72BFF6 /* JSONFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752817CB7BAF075B7DE6EC75 /* JSONFetch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		3896D3D61C85D8920046EDE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3896D3DC1C85D9810046EDE0 /* OpenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenViewController.swift; sourceTree = "<group>"; };
 		3896D3DE1C85D9880046EDE0 /* ScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewController.swift; sourceTree = "<group>"; };
+		752817CB7BAF075B7DE6EC75 /* JSONFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFetch.swift; sourceTree = "<group>"; };
 		8CCD106867A389F552B795D5 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E912CC9DAC948783EB5AEDC0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +89,7 @@
 				3896D3D11C85D8920046EDE0 /* Assets.xcassets */,
 				3896D3D31C85D8920046EDE0 /* LaunchScreen.storyboard */,
 				3896D3D61C85D8920046EDE0 /* Info.plist */,
+				752817CB7BAF075B7DE6EC75 /* JSONFetch.swift */,
 			);
 			path = "Café Analog";
 			sourceTree = "<group>";
@@ -130,7 +133,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3896D3C21C85D8920046EDE0 /* Build configuration list for PBXProject "Café Analog" */;
+			buildConfigurationList = 3896D3C21C85D8920046EDE0 /* Build configuration list for PBXProject "Café Analog" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -217,6 +220,7 @@
 				3896D3DF1C85D9880046EDE0 /* ScheduleTableViewController.swift in Sources */,
 				3896D3CB1C85D8920046EDE0 /* AppDelegate.swift in Sources */,
 				3896D3DD1C85D9810046EDE0 /* OpenViewController.swift in Sources */,
+				752818F32FBFCCBF2D72BFF6 /* JSONFetch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3896D3C21C85D8920046EDE0 /* Build configuration list for PBXProject "Café Analog" */ = {
+		3896D3C21C85D8920046EDE0 /* Build configuration list for PBXProject "Café Analog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3896D3D71C85D8920046EDE0 /* Debug */,

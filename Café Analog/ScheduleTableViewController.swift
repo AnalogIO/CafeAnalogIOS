@@ -57,82 +57,9 @@ class ScheduleTableViewController: UITableViewController {
     }
     
     func fetch() {
-        debugPrint("update")
-        Alamofire.request(.GET, "http://cafeanalog.dk/api/shifts/")
-        .responseJSON { response in switch response.result {
-            case .Success(let JSON):
-                let response = JSON as! [NSDictionary]
-                self.days = self.parseDictionaryToDays(response)
-                let table = self.view as! UITableView
-                table.reloadData()
-                
-            case .Failure(let error):
-                print("Request failed with error: \(error)")
-            }
-        }
-        
+        days = JSONFetch.getCache().schedule
         let table = self.view as! UITableView
         table.reloadData()
-    }
-    
-    func parseDictionaryToDays(data: [NSDictionary]) -> [Day] {
-        var toReturn = [String: Day]()
-        
-        for timeSlotData in data {
-            if let open = timeSlotData["Open"] as? String {
-                if let close = timeSlotData["Close"] as? String {
-                    if let start = jsonDateToNSDate(open) {
-                        if let end = jsonDateToNSDate(close) {
-                            let formattedDay = formatDateWithString("EEEE", toFormat: start)
-                            let NSDay = getNSDay(start)
-                            
-                            let startHour = getHourFromDate(start)
-                            let endHour = getHourFromDate(end)
-                            
-                            if toReturn[formattedDay] == nil {
-                                toReturn[formattedDay] = Day(day: formattedDay, first: false, second: false, third: false, NSDateDay: NSDay)
-                            }
-                            if (startHour >= 9 && endHour < 12) {
-                                toReturn[formattedDay]?.first = true
-                            }
-                            if (startHour >= 11 && endHour < 16) {
-                                toReturn[formattedDay]?.second = true
-                            }
-                            if (startHour >= 14) {
-                                toReturn[formattedDay]?.third = true
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        return toReturn.values.sort({ (first: Day, second: Day) -> Bool in return first.NSDateDay < second.NSDateDay })
-    }
-    
-    func jsonDateToNSDate(jsonDate: String) -> NSDate? {
-        let dateFor: NSDateFormatter = NSDateFormatter()
-        dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        return dateFor.dateFromString(jsonDate)!
-    }
-    
-    func getHourFromDate(date: NSDate) -> Int {
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Hour, .Minute], fromDate: date)
-        return components.hour
-    }
-    
-    func getNSDay(date: NSDate) -> Int {
-        let calendar = NSCalendar.currentCalendar();
-        return calendar.component(.Day, fromDate: date)
-    }
-    
-    func formatDateWithString(format: String, toFormat date: NSDate) -> String {
-        let df = NSDateFormatter()
-        df.timeZone = NSTimeZone(forSecondsFromGMT: 3600)
-        df.dateFormat = format
-        let stringFromDate = df.stringFromDate(date)
-        return stringFromDate
     }
 }
 
@@ -141,20 +68,4 @@ class ScheduleTableViewCell: UITableViewCell {
     @IBOutlet weak var firstTimeSlot: UILabel!
     @IBOutlet weak var secondTimeSlot: UILabel!
     @IBOutlet weak var thirdTimeSlot: UILabel!
-}
-
-class Day {
-    let day: String
-    var first: Bool
-    var second: Bool
-    var third: Bool
-    let NSDateDay: Int
-    
-    init(day: String, first: Bool, second: Bool, third: Bool, NSDateDay: Int) {
-        self.day = day
-        self.first = first
-        self.second = second
-        self.third = third
-        self.NSDateDay = NSDateDay
-    }
 }

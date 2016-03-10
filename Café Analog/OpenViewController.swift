@@ -38,18 +38,7 @@ class OpenViewController: UIViewController {
     }
 
     func update(){
-        debugPrint("update")
-        Alamofire.request(.GET, "http://cafeanalog.dk/api/open/")
-            .responseJSON { response in switch response.result {
-            case .Success(let JSON):
-                let response = JSON as! NSDictionary
-                let open:Bool = response.objectForKey("open") as! Bool
-                self.setOpenLabel(open)
-                
-            case .Failure(let error):
-                print("Request failed with error: \(error)")
-                }
-        }
+        self.setOpenLabel(JSONFetch.getCache().open)
     }
     
     override func didReceiveMemoryWarning() {
