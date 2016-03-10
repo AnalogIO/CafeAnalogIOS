@@ -4,35 +4,34 @@
 //
 
 import Foundation
+import Alamofire
 
 class JSONFetch {
-    var cache: JSONCache
+    let cache: JSONCache
     
     init() {
         self.cache = getCache()
     }
-
-    func getCache() -> JSONCache {
+    
+    private func getCache() -> JSONCache {
         //If five minutes have passed since last cache, fetch new data.
-        if cache.created.timeIntervalSinceNow/60 > 5 {
-            self.cache = fetchData()
+        if self.cache.created.timeIntervalSinceNow/60 > 5 {
+            return fetchData()
         }
 
         //otherwise return cached data.
-        else {
-            return self.cache
-        }
+        return self.cache
     }
 
-    func fetchData() -> JSONCache {
-        var open: Bool
-        var schedule: [Day]
+    func fetchData() -> JSONCache! {
+        var open: Bool?
+        var schedule: [Day]?
 
         Alamofire.request(.GET, "http://cafeanalog.dk/api/open/")
         .responseJSON { response in switch response.result {
         case .Success(let JSON):
             let response = JSON as! NSDictionary
-            open = response.objectForKey("open") as! Bool
+            open = response.objectForKey("open") as? Bool
         case .Failure(let error):
             print("Request failed with error: \(error)")
         }
@@ -48,7 +47,12 @@ class JSONFetch {
         }
         }
 
-        return JSONCache(open: open, schedule: schedule)
+        if let open = open {
+            if let schedule = schedule {
+                return JSONCache(open: open, schedule: schedule)
+            }
+        }
+        return cache
     }
 
     func parseDictionaryToDays(data: [NSDictionary]) -> [Day] {
@@ -60,10 +64,10 @@ class JSONFetch {
                     if let start = jsonDateToNSDate(open) {
                         if let end = jsonDateToNSDate(close) {
                             let formattedDay = formatDateWithString("EEEE", toFormat: start)
-                            let NSDay = getNSDay(start)
+                            let NSDay = dayOfMonthFrom(start)
 
-                            let startHour = getHourFromDate(start)
-                            let endHour = getHourFromDate(end)
+                            let startHour = hourFrom(start)
+                            let endHour = hourFrom(end)
 
                             if toReturn[formattedDay] == nil {
                                 toReturn[formattedDay] = Day(day: formattedDay, first: false, second: false, third: false, NSDateDay: NSDay)
@@ -101,12 +105,12 @@ class JSONFetch {
         return stringFromDate
     }
     
-    func getNSDay(date: NSDate) -> Int {
+    func dayOfMonthFrom(date: NSDate) -> Int {
         let calendar = NSCalendar.currentCalendar();
         return calendar.component(.Day, fromDate: date)
     }
     
-    func getHourFromDate(date: NSDate) -> Int {
+    func hourFrom(date: NSDate) -> Int {
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components([.Hour, .Minute], fromDate: date)
         return components.hour
