@@ -19,7 +19,9 @@ class ScheduleTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return days.count
+        // Return the number of rows in the section.
+        //+1 to add the last extra row
+        return days.count + 1
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,6 +29,14 @@ class ScheduleTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        //Check if last cell.
+        let row = tableView.numberOfRowsInSection(indexPath.section)
+        if (indexPath.row == row-1) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("GitHubCell", forIndexPath: indexPath) as! GitHubTableViewCell
+            return cell
+        }
+        
+        //If not last cell, add schedule.
         let cell = tableView.dequeueReusableCellWithIdentifier("TimeSlotCell", forIndexPath: indexPath) as! ScheduleTableViewCell
         let day = days[indexPath.row]
         
@@ -34,9 +44,18 @@ class ScheduleTableViewController: UITableViewController {
         setBorder(cell.firstTimeSlot, open: day.first)
         setBorder(cell.secondTimeSlot, open: day.second)
         setBorder(cell.thirdTimeSlot, open: day.third)
-        
         cell.userInteractionEnabled = false
+        
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //Check if last cell.
+        let row = tableView.numberOfRowsInSection(indexPath.section)
+        if (indexPath.row == row-1) {
+            let app = UIApplication.sharedApplication()
+            app.openURL(NSURL(string:"http://www.github.com/analogio/cafeanalogios")!)
+        }
     }
     
     func setBorder(label: UILabel, open: Bool) {
@@ -141,6 +160,19 @@ class ScheduleTableViewCell: UITableViewCell {
     @IBOutlet weak var firstTimeSlot: UILabel!
     @IBOutlet weak var secondTimeSlot: UILabel!
     @IBOutlet weak var thirdTimeSlot: UILabel!
+}
+
+class GitHubTableViewCell: UITableViewCell {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        reload()
+    }
+    func reload() {
+        if selected {
+            contentView.backgroundColor = .whiteColor()
+        }
+    }
+
 }
 
 class Day {
