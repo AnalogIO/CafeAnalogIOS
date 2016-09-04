@@ -111,13 +111,13 @@ class ScheduleTableViewController: UITableViewController {
                             if toReturn[formattedDay] == nil {
                                 toReturn[formattedDay] = Day(day: formattedDay, first: false, second: false, third: false, NSDateDay: NSDay)
                             }
-                            if (startHour >= 9 && endHour < 12) {
+                            if (startHour >= 8 && endHour <= 10) {
                                 toReturn[formattedDay]?.first = true
                             }
-                            if (startHour >= 11 && endHour < 16) {
+                            if (startHour >= 10 && endHour <= 13) {
                                 toReturn[formattedDay]?.second = true
                             }
-                            if (startHour >= 14) {
+                            if (startHour >= 13) {
                                 toReturn[formattedDay]?.third = true
                             }
                         }
