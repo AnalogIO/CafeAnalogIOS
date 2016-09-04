@@ -187,7 +187,7 @@
                                                         <fragment content="Contribute on GitHub!">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="18" name="Futura-Medium"/>
+                                                                <font key="NSFont" size="16" name="Futura-Medium"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -200,7 +200,7 @@
                                                         <fragment content="Found an issue in the app?">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="18" name="Futura-Medium"/>
+                                                                <font key="NSFont" size="16" name="Futura-Medium"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -212,7 +212,7 @@
                                                         <fragment content="Want to help us make it better?">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="18" name="Futura-Medium"/>
+                                                                <font key="NSFont" size="16" name="Futura-Medium"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
